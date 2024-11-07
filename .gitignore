@@ -1,0 +1,39 @@
+# Bytecode e arquivos temporários do Python
+*.pyc
+__pycache__/
+*$py.class
+
+# Ambiente virtual (incluindo arquivos dentro dele)
+venv/
+.venv/
+env/
+.env/
+
+# Arquivos de configuração específicos do ambiente
+local_settings.py
+db.sqlite3
+
+# Arquivos gerados pelo Django
+staticfiles/
+
+# Arquivos de log
+*.log
+
+# Arquivos de editor
+.idea/
+.vscode/
+
+# Arquivos macOS
+.DS_Store
+
+# Arquivos de desenvolvimento
+.coverage
+*.sqlite3
+
+# Arquivos de mídia (se aplicável)
+media/
+
+# Arquivos sensíveis (se aplicável)
+.env  # Arquivo de variáveis de ambiente
+*.key
+*.pem
