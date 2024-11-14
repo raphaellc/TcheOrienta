@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registrar Estabelecimento</title>
+</head>
+<body>
+
+  <h1>Registrar Estabelecimento</h1>
+  <form id="estabelecimentoForm">
+    <input type="hidden" id="lat" name="lat">
+    <input type="hidden" id="lng" name="lng">
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br><br>
+    <label for="telefone">Telefone:</label><br>
+    <input type="text" id="telefone" name="telefone"><br><br>
+    <label for="localizacao">Localização:</label><br>
+    <input type="text" id="localizacao" name="localizacao" readonly><br><br>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    // Obtém as coordenadas da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const lat = urlParams.get('lat');
+    const lng = urlParams.get('lng');
+
+    // Define os valores dos campos hidden
+    document.getElementById('lat').value = lat;
+    document.getElementById('lng').value = lng;
+
+    // Obtém o nome do local
+    const localizacao = document.getElementById('localizacao');
+    localizacao.value = '48XCXQ9F+8CQ';
+
+    // Adiciona um evento de submit ao formulário
+    document.getElementById('estabelecimentoForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Cria um objeto com os dados do estabelecimento
+      var estabelecimento = {
+        nome: document.getElementById('nome').value,
+        telefone: document.getElementById('telefone').value,
+        localizacao: document.getElementById('localizacao').value,
+        latitude: lat,
+        longitude: lng
+      }
+
+      // Faz a requisição POST para a API
+      fetch('/api/estabelecimentos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(estabelecimento)
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Exibe uma mensagem de sucesso ou erro
+        alert(data.message);
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao criar o estabelecimento.');
+      });
+    });
+  </script>
+
+</body>
+</html>

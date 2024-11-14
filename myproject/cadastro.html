@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cadastrosssss</title>
+  <style>
+    /* Estilos CSS iguais aos da página de login */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro</h2>
+    <form id="cadastroForm">
+      <input type="text" id="username" placeholder="Usuário" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('cadastroForm');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('http://localhost:8000/autenticacao/cadastro/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => {
+        
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Redirecionar para página de login ou exibir mensagem de sucesso
+        console.log('Cadastro bem-sucedido:', data);
+        // Exemplo: window.location.href = 'login.html';
+      })
+      .catch(error => {
+        // Exibir mensagem de erro para o usuário
+        console.error('Erro:', error);
+        alert(response.statusText);
+      });
+    });
+  </script>
+</body>
+</html>

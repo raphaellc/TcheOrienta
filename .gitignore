@@ -8,6 +8,7 @@ venv/
 .venv/
 env/
 .env/
+base_env/
 
 # Arquivos de configuração específicos do ambiente
 local_settings.py

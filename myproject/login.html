@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Usuário" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('http://localhost:8000/autenticacao/autenticar/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error(response.json);
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Redirecionar para página principal ou exibir mensagem de sucesso
+        console.log('Autenticação bem-sucedida:', data);
+        // Exemplo: window.location.href = 'index.html';
+      })
+      .catch(error => {
+        // Exibir mensagem de erro para o usuário
+        console.error('Erro:', error);
+        alert('Erro na autenticação');
+      });
+    });
+  </script>
+</body>
+</html>
