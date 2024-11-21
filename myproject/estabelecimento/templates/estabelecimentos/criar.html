@@ -1,7 +1,7 @@
 <h1>Criar Estabelecimento</h1>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" action='http://127.0.0.1:8000/estabelecimento/criar/' enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Salvar</button>
 </form>
-<a href="{% url 'listar_estabelecimentos' %}">Voltar</a>
+<a href="http://127.0.0.1:8000{% url 'listar_estabelecimentos' %}">Voltar</a>

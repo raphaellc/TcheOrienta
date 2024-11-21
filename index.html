@@ -57,13 +57,31 @@
 
   // Função para abrir o popup com o formulário
   function abrirFormulario(latlng) {
-    // Se latlng for undefined, significa que o formulário foi aberto pelo menu
-    // e não por um clique no mapa.
-    if (latlng) {
-      document.getElementById('lat').value = latlng.lat;
-      document.getElementById('lng').value = latlng.lng;
-    }
-    document.getElementById('popup').style.display = 'block';
+        // Requisição para buscar o formulário
+        fetch('http://127.0.0.1:8000/estabelecimento/criar/')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao carregar o formulário.');
+        }
+        return response.text();
+      })
+      .then(html => {
+        // Insere o HTML no elemento com id 'popup'
+        document.getElementById('popup').innerHTML = html;
+
+        // Se coordenadas forem fornecidas, insira no formulário
+        if (latlng) {
+          document.querySelector('#popup input[name="lat"]').value = latlng.lat;
+          document.querySelector('#popup input[name="lng"]').value = latlng.lng;
+        }
+
+        // Exibe o popup
+        document.getElementById('popup').style.display = 'block';
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        alert('Não foi possível carregar o formulário.');
+      });
   }
 
   // Adiciona um evento de clique no mapa

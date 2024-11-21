@@ -12,6 +12,8 @@ class Estabelecimento(models.Model):
     descricao = models.TextField()
     foto_local = models.ImageField(upload_to='estabelecimentos/fotos/', null=True, blank=True)
     media_avaliacao = models.FloatField(default=0.0)
+    lat = models.CharField(max_length=255)
+    lng = models.CharField(max_length=255)
 
     # Foreign Keys (FK)
     proprietario = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Estabelecimento
 from .forms import EstabelecimentoForm  # Adicione um arquivo forms.py para os formulários
-
+from django.views.decorators.csrf import csrf_exempt
 # Listar estabelecimentos
 def listar_estabelecimentos(request):
     estabelecimentos = Estabelecimento.buscar_todos_estabelecimentos()
     return render(request, 'estabelecimentos/listar.html', {'estabelecimentos': estabelecimentos})
 
 # Criar estabelecimento
+@csrf_exempt
 def criar_estabelecimento(request):
     if request.method == 'POST':
         form = EstabelecimentoForm(request.POST, request.FILES)

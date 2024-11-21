@@ -25,7 +25,7 @@
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      fetch('http://localhost:8000/autenticacao/cadastro/', {
+      fetch('http://127.0.0.1:8000/autenticacao/cadastro/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@
       .then(data => {
         // Redirecionar para página de login ou exibir mensagem de sucesso
         console.log('Cadastro bem-sucedido:', data);
-        // Exemplo: window.location.href = 'login.html';
+        window.location.href = 'login.html';
       })
       .catch(error => {
         // Exibir mensagem de erro para o usuário

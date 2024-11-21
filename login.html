@@ -57,11 +57,13 @@
 
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-
-      fetch('http://localhost:8000/autenticacao/autenticar/', {
+      
+      alert(username+password);
+      fetch('http://127.0.0.1:8000/autenticacao/autenticar/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
+          
         },
         body: JSON.stringify({ username, password })
       })
@@ -69,17 +71,24 @@
         if (!response.ok) {
             throw new Error(response.json);
         }
+        alert('retornando resposta');
         return response.json();
       })
       .then(data => {
         // Redirecionar para página principal ou exibir mensagem de sucesso
         console.log('Autenticação bem-sucedida:', data);
         // Exemplo: window.location.href = 'index.html';
+        // Guardar o token na sessão do usuário
+        sessionStorage.setItem('authToken', data.token);
+
+        // Redirecionar para a página index.html
+        window.location.href = 'index.html';
       })
       .catch(error => {
         // Exibir mensagem de erro para o usuário
+        
         console.error('Erro:', error);
-        alert('Erro na autenticação');
+        alert('Erro na autenticação de novo!'+ error.message);
       });
     });
   </script>
